@@ -1,4 +1,4 @@
-package com.javahackers.javahackersdemo;
+package com.javahackers.javahackersdemo.db;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Users {
+public class Employee {
     @Id
     @GeneratedValue
     Long id;

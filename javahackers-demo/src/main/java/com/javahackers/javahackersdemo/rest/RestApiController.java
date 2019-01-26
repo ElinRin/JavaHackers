@@ -1,4 +1,4 @@
-package com.javahackers.javahackersdemo;
+package com.javahackers.javahackersdemo.rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
