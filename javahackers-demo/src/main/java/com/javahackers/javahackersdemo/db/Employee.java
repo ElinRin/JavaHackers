@@ -16,4 +16,7 @@ public class Employee {
 
     @Column
     Long tariff;
+
+    @Column
+    String schedule;
 }
