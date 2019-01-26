@@ -8,13 +8,26 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/employees")
-public class EmployeeController {
+public class EmployeeController extends AbstractController {
     private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
     @PostMapping("/")
     public @ResponseBody String authenticate() {
         // todo: generate user token and save it
         return "1";
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<String> getInitialInfo(@RequestHeader("Token") String token) {
+        String id = getIdByToken(token);
+
+        if (id == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        // todo
+        // builduserinfo
+        return new ResponseEntity<>("employeeInfo", HttpStatus.OK);
     }
 
     @GetMapping("/paylist")

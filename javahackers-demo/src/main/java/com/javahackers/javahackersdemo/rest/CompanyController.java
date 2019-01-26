@@ -9,24 +9,32 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/companies")
-public class CompanyController {
+public class CompanyController extends AbstractController {
 
     private static final Logger logger = LoggerFactory.getLogger(CompanyController.class);
 
     @PostMapping("/")
     public @ResponseBody String authenticate() {
         // todo: generate user token and save it
+        // todo: in case of wrong credentials return 403 Forbidden
         return "2";
     }
 
-    @GetMapping("/helloworld")
-    public String sayHello() {
-        return "<h1>Hello world!</h1>";
+    @GetMapping("/")
+    public ResponseEntity<String> getInitialInfo(@RequestHeader("Token") String token) {
+        String id = getIdByToken(token);
+
+        if (id == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        // todo
+        // buildCompanyInfo
+        return new ResponseEntity<>("CompanyInfo", HttpStatus.OK);
     }
 
     @PostMapping("/employees")
     public ResponseEntity addEmployees(@RequestHeader("Token") String token) {
-
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -39,5 +47,4 @@ public class CompanyController {
     public ResponseEntity updateSkips() {
         return new ResponseEntity(HttpStatus.OK);
     }
-
 }

@@ -12,7 +12,6 @@ import java.util.Date;
 public interface DaysRepository extends JpaRepository<Day, Date> {
     Collection<Day> findByDate(Date date);
 
-
     @Modifying
     @Query(value = "insert into day(redirect,user_id) VALUES (:insertLink,:id)", nativeQuery = true)
     @Transactional
