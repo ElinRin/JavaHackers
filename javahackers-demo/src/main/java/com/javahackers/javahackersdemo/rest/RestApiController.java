@@ -3,7 +3,9 @@ package com.javahackers.javahackersdemo.rest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import javax.validation.constraints.Null;
+//import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 
 @RestController
@@ -27,12 +29,14 @@ public class RestApiController {
 
     @PostMapping("/companies/{companyId}/employees")
     public String addEmployees(@PathVariable String companyId) {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+        return "ok";
     }
 
     @PostMapping("/companies/skips")
     public String updateSkips() {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+        return "ok";
     }
 
 
