@@ -48,7 +48,7 @@ public class EmployeeController extends AbstractController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         // todo: compare hash
-        if (!employee.getPassHash().equals(authInfo.password)) {
+        if (!employee.getPassword().equals(authInfo.password)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
@@ -97,7 +97,7 @@ public class EmployeeController extends AbstractController {
     }
 
     @PostMapping("/withdrawal")
-    public ResponseEntity withdrawMoney() {
+    public ResponseEntity withdrawMoney(@RequestBody String request) {
         return new ResponseEntity(HttpStatus.OK);
     }
 

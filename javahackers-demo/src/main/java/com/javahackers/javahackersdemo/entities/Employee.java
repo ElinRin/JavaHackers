@@ -27,7 +27,7 @@ public class Employee {
     private String schedule;
 
     @Column
-    private String passHash;
+    private String password;
 
     public Employee() {
         super();
@@ -66,8 +66,8 @@ public class Employee {
         return schedule;
     }
 
-    public String getPassHash() {
-        return passHash;
+    public String getPassword() {
+        return password;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class Employee {
                 ", salary=" + salary +
                 ", email='" + email + '\'' +
                 ", schedule='" + schedule + '\'' +
-                ", passHash='" + passHash + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
