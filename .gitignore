@@ -12,3 +12,6 @@ buildNumber.properties
 
 ### IDEA ###
 .idea/
+.vscode
+*/.idea/
+*/node_modules/

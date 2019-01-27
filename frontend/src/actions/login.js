@@ -26,7 +26,7 @@ export const identity = (user, email, password) => async dispatch =>
             }
         ))
 
-export const login = user => async dispatch => fetch(API_URL + `${user}/`, {
+export const login = (user, token) => async dispatch => fetch(API_URL + `${user}/`, {
         method: 'GET',
         headers: {
             'Token': token,
