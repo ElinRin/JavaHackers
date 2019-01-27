@@ -30,7 +30,6 @@ public class EmployeeController extends AbstractController {
         this.employeesRepository = employeesRepository;
     }
 
-
     @PostMapping("/")
     public ResponseEntity<String> authenticate(@RequestBody String body) {
 
