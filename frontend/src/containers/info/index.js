@@ -7,8 +7,6 @@ import {
 import {
 } from '../../utils';
 
-import './styles.css';
-
 
 const Info = () => (<div/>);
 
