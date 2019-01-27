@@ -3,7 +3,7 @@ package com.javahackers.javahackersdemo.auxiliary;
 import java.util.Date;
 
 public class Utils {
-    boolean isWorkDay(Date date) {
+    public static boolean isWorkDay(Date date) {
         Date today = new Date();
         int diffInDays = (int)( (date.getTime() - today.getTime())
                 / (1000 * 60 * 60 * 24) );
@@ -14,7 +14,7 @@ public class Utils {
         }
     }
 
-    Date reduceDayToFirst(Date date) {
+    public static Date reduceDayToFirst(Date date) {
         int month = date.getMonth();
         int year = date.getYear();
 

@@ -86,7 +86,7 @@ public class RepositoriesHelper {
     public boolean withdraw(String id, int requestedDays) {
         Employee employee = findEmployeeById(id);
         EmployeeInfo info = findEmployeeInfoById(id);
-        Date low = null, high = new Date();
+        Date low = Utils.reduceDayToFirst(new Date()), high = new Date();
 
         Collection<Day> dayCollection = daysRepository.findByDateBetweenAndId(low, high, id);
         Day[] array = (Day[])dayCollection.toArray();
