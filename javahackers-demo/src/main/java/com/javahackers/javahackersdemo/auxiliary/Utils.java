@@ -13,4 +13,16 @@ public class Utils {
             return true;
         }
     }
+
+    Date reduceDayToFirst(Date date) {
+        int month = date.getMonth();
+        int year = date.getYear();
+
+        Date result = new Date();
+        result.setDate(1);
+        result.setMonth(month);
+        result.setYear(year);
+
+        return result;
+    }
 }
