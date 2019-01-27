@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "cors": "^2.8.5",
     "react": "^16.7.0",
     "react-cookie": "^3.0.8",
     "react-dom": "^16.7.0",
@@ -23,6 +24,9 @@
   "devDependencies": {
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0"
+  },
+  "headers": {
+    "Access-Control-Allow-Origin": "*"
   },
   "browserslist": [
     ">0.2%",

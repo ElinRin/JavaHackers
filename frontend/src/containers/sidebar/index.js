@@ -194,14 +194,14 @@ class Sidebar extends Component {
 
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = state => ({
 
-};
+});
 
-const mapDispatchToProps = {
+const mapDispatchToProps = ({
     login,
     EmployeeOut,
     CompanyOut
-};
+});
 
 export default withCookies(withRouter(connect(mapStateToProps, mapDispatchToProps)(Sidebar)));

@@ -3,18 +3,18 @@ import {
 } from '../actions/constants';
 
 const initialState = {
-    token: '',
-    companyName: '',
-    realMoney: 0,
-    futureMoney: 0,
+    token: 1,
+    companyName: '1c',
+    realMoney: 160000,
+    futureMoney: 192000,
     payList: [],
-    costHour: 0,
-    realDays: 0,
+    costHour: 2000,
+    realDays: 10,
     info: {
-        name: '',
-        email: '',
-        salary: 0,
-        schedule: ''
+        name: 'Aндрей',
+        email: 'mail@mail',
+        salary: 320000,
+        schedule: '5/2'
     }
 };
 

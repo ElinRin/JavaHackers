@@ -18,7 +18,8 @@ import Sidebar from './containers/sidebar';
 import './styles.css';
 import Employee from './pages/Employee';
 import Company from './pages/Company';
-import Info from './containers/info'
+import Info from './containers/info';
+import Withdraw from './containers/Withdraw'
 
 const store = createStore(reducers, composeWithDevTools(
     applyMiddleware(thunk)
@@ -33,7 +34,9 @@ ReactDOM.render((
                     <Sidebar/>
                     <Switch>
                         <Route exact path='/' component={Main} />
-                        <Route exact path='/employee' component={Employee} />
+                        <Route exact path='/employee' component={Info} />
+                        <Route exact path='/employee/info' component={Info} />
+                        <Route exact path='/employee/withdraw' component={Withdraw} />
                         <Route exact path='/company' component={Company} />
                     </Switch>
                 </div>
