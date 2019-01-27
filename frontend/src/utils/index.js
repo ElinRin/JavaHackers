@@ -9,10 +9,7 @@ export const parseXlsx = file => {
 
 
     return data;
-}
-
-export const sendEmployees = (token, file) = sendData(EMPLOYEES, token, file);
-export const sendSkips = (token, file) = sendData(SKIPS, token, file);
+};
 
 const sendData = (type, token, file) => fetch(API_URL + `company/${type}` , {
         method: 'POST',
