@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withCookies } from 'react-cookie';
 
+
 import {
     identity,
     login
 } from '../../actions';
 
 import './styles.css';
+import {COMPANY} from "../../constants";
 
 class Login extends Component {
     constructor(props) {
@@ -98,7 +100,7 @@ class Login extends Component {
 
         return (
             <div className='block'>
-                {this.props.user}
+                <h3 className='loginHeader'>{this.props.user === COMPANY ? 'Компания' : 'Сотрудник'}</h3>
                 <form className='loginForm' onSubmit={this.onSubmit} >
                     <div className='input'>
                         <label>

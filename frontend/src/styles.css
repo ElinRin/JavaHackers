@@ -14,8 +14,8 @@ body {
   height: 100%;
   width: 100%;
   background-color: #ffffff;
-  background-image: url("./images/overlay.png"), linear-gradient(60deg, rgba(118, 118, 118, 0.88) 5%,
-  rgba(180, 206, 255, 0.81)), url("./images/bg.jpg");
+  background-image: url("./images/overlay.png"), linear-gradient(60deg, #8b8b8b 5%,
+  #00b100), url("./images/bg.jpg");
   background-repeat: repeat, no-repeat, no-repeat;
   background-size: 100px 100px, cover, cover;
   background-position: top left, center center, bottom center;
