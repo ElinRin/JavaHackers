@@ -57,7 +57,7 @@ public class RepositoriesHelper {
         return employeeInfo;
     }
 
-    CompanyInfo findCompanyInfoById(String id) {
+    public CompanyInfo findCompanyInfoById(String id) {
         Company company = findCompanyById(id);
         if (company == null) {
             return null;

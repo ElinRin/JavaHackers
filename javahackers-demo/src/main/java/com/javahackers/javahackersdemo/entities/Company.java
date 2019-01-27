@@ -15,7 +15,7 @@ public class Company {
     private String email;
 
     @Column
-    private String passHash;
+    private String password;
 
     @Column
     private String name;
@@ -24,9 +24,9 @@ public class Company {
         super();
     }
 
-    public Company(String email, String passHash, String name) {
+    public Company(String email, String password, String name) {
         this.email = email;
-        this.passHash = passHash;
+        this.password = password;
         this.name = name;
     }
 
@@ -38,8 +38,8 @@ public class Company {
         return email;
     }
 
-    public String getPassHash() {
-        return passHash;
+    public String getPassword() {
+        return password;
     }
 
     public String getName() {
@@ -51,7 +51,7 @@ public class Company {
         return "Company{" +
                 "id='" + id + '\'' +
                 ", email='" + email + '\'' +
-                ", passHash='" + passHash + '\'' +
+                ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 '}';
     }

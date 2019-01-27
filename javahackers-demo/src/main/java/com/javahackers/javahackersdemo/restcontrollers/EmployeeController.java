@@ -1,7 +1,6 @@
 package com.javahackers.javahackersdemo.restcontrollers;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import com.javahackers.javahackersdemo.auxiliary.AuthInfo;
 import com.javahackers.javahackersdemo.auxiliary.EmployeeInfo;
 import com.javahackers.javahackersdemo.auxiliary.RepositoriesHelper;
@@ -15,7 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/employee")
@@ -23,7 +24,7 @@ public class EmployeeController extends AbstractController {
     private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
     // Map sessionToken:employeeId
-    private Map<String, String> sessions = new HashMap<>();
+    private Map<String, String> tokens = new HashMap<>();
 
     private final EmployeesRepository employeesRepository;
     private final CompanyRepository companyRepository;
@@ -52,14 +53,14 @@ public class EmployeeController extends AbstractController {
         }
 
         String sessionId = UUID.randomUUID().toString();
-        sessions.put(sessionId, employee.getId());
+        tokens.put(sessionId, employee.getId());
 
         return new ResponseEntity<>(sessionId, HttpStatus.OK);
     }
 
     @GetMapping("/")
     public ResponseEntity<String> getInitialInfo(@RequestHeader("Token") String token) {
-        String id = sessions.getOrDefault(token, null);
+        String id = tokens.getOrDefault(token, null);
 
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
