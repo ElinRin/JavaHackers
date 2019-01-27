@@ -17,14 +17,17 @@ public class Company {
     @Column
     private String passHash;
 
+    @Column
+    private String name;
+
     public Company() {
         super();
     }
 
-    public Company(String email, String passHash) {
-        super();
+    public Company(String email, String passHash, String name) {
         this.email = email;
         this.passHash = passHash;
+        this.name = name;
     }
 
     public String getId() {
@@ -39,12 +42,17 @@ public class Company {
         return passHash;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return "Company{" +
                 "id='" + id + '\'' +
                 ", email='" + email + '\'' +
                 ", passHash='" + passHash + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }
