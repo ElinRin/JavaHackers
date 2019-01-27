@@ -1,20 +1,25 @@
 package com.javahackers.javahackersdemo.auxiliary;
 
 import com.javahackers.javahackersdemo.entities.Company;
+import com.javahackers.javahackersdemo.entities.Day;
 import com.javahackers.javahackersdemo.entities.Employee;
 import com.javahackers.javahackersdemo.repositories.CompanyRepository;
+import com.javahackers.javahackersdemo.repositories.DaysRepository;
 import com.javahackers.javahackersdemo.repositories.EmployeesRepository;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Optional;
 
 public class RepositoriesHelper {
     EmployeesRepository employeesRepository;
     CompanyRepository companyRepository;
+    DaysRepository daysRepository;
 
-    public RepositoriesHelper(EmployeesRepository employeesRepository, CompanyRepository companyRepository) {
+    public RepositoriesHelper(EmployeesRepository employeesRepository, CompanyRepository companyRepository, DaysRepository daysRepository) {
         this.employeesRepository = employeesRepository;
         this.companyRepository = companyRepository;
+        this.daysRepository = daysRepository;
     }
 
     public Employee findEmployeeByEmail(String email) {
@@ -77,4 +82,32 @@ public class RepositoriesHelper {
 
         return info;
     }
+
+    public boolean withdraw(String id, int days) {
+        Employee employee = findEmployeeById(id);
+        EmployeeInfo info = findEmployeeInfoById(id);
+        Date low = null, high = new Date();
+
+        Collection<Day> dayCollection = daysRepository.findByDateBetweenAndId(low, high, id);
+        Day[] array = (Day[])dayCollection.toArray();
+
+
+        int count = 0;
+        for (int i = 0; i < array.length; ++i) {
+            if (!array[i].isWithdraw()) {
+                count++;
+            }
+        }
+
+        if (count < days) {
+            return false;
+        }
+
+        for (int i = 0; i < array.length; ++i) {
+            array[i].
+        }
+
+        return true;
+    }
+
 }

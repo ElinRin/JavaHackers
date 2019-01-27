@@ -97,8 +97,33 @@ public class EmployeeController extends AbstractController {
     }
 
     @PostMapping("/withdrawal")
-    public ResponseEntity withdrawMoney(@RequestBody String request) {
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<String> withdrawMoney(@RequestHeader("Token") String token, @RequestBody String days) {
+        String id = tokens.getOrDefault(token, null);
+
+        if (id == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        EmployeeInfo info = repositories.findEmployeeInfoById(id);
+        if (info == null) {
+            return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+        }
+
+        Employee employee = repositories.findEmployeeById(id);
+        if (employee == null) {
+            return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+        }
+
+        int d = Integer.parseInt(days);
+        long toWithdraw = d*info.costHour;
+
+        boolean withdrawed = repositories.withdraw(id, d);
+        if (withdrawable) {
+
+        }
+
+        sberbankApi.withdrawMoney(employee.getEmail(), toWithdraw);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/paylist")

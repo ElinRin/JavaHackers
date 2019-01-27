@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Date;
 
 
 @Entity
@@ -16,7 +17,7 @@ public class Day {
     private String employeeId;
 
     @Column
-    private String date;
+    private Date date;
 
     @Column
     private boolean skip = false;
@@ -28,11 +29,23 @@ public class Day {
         super();
     }
 
-    public Day(String employeeId, String date, boolean skip, boolean withdraw) {
+    public Day(String employeeId, Date date, boolean skip, boolean withdraw) {
         super();
         this.employeeId = employeeId;
         this.date = date;
         this.skip = skip;
+        this.withdraw = withdraw;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setSkip(boolean skip) {
+        this.skip = skip;
+    }
+
+    public void setWithdraw(boolean withdraw) {
         this.withdraw = withdraw;
     }
 
@@ -44,7 +57,7 @@ public class Day {
         return employeeId;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
