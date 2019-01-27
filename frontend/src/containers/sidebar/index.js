@@ -45,10 +45,10 @@ class Sidebar extends Component {
             this.setState({user});
         }
         else {
-           if (location && (location.pathname === `/${EMPLOYEE}`)) {
+           if (location && (location.pathname.split('/')[1] === EMPLOYEE)) {
                this.setState({user: EMPLOYEE});
            }
-            if (location && (location.pathname === `/${COMPANY}`)) {
+            if (location && (location.pathname.split('/')[1] === COMPANY)) {
                 this.setState({user: COMPANY});
             }
         }
@@ -73,12 +73,12 @@ class Sidebar extends Component {
 
     hadleClick(path) {
         return () =>  {
-            // if (this.props.user.id) {
-            //     this.props.history.push(`/${path}`);
-            // }
-            // else {
-            //     this.props.history.push(`/login`);
-            // }
+            if (this.state.user) {
+                this.props.history.push(`/${path}`);
+            }
+            else {
+                this.props.history.push(`/login`);
+            }
         };
     }
 
@@ -90,39 +90,84 @@ class Sidebar extends Component {
 
     renderSidebar() {
 
-        return (
-            <div className="sidebar">
-                <div className="icons">
-                    <ul>
-                        <li>
-                            <div className="icon a" onClick={this.hadleClick()}>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="icon c" onClick={this.hadleClick()}>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="icon d" onClick={this.handleOutput}>
-                            </div>
-                        </li>
-                    </ul>
+        if (this.state.user === COMPANY) {
+            return (
+                <div className="sidebar">
+                    <div className="icons">
+                        <ul>
+                            <li>
+                                <div className="icon a" onClick={this.hadleClick('company/upload')}>
+                                </div>
+                            </li>
+                            <li>
+                                <div className="icon c" onClick={this.hadleClick('company/employee')}>
+                                </div>
+                            </li>
+                            <li>
+                                <div className="icon d" onClick={this.handleOutput}>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="links">
+                        <ul>
+                            <li>
+                                <div className="link" onClick={this.hadleClick('company/upload')}><br/>Загрузка</div>
+                            </li>
+                            <li>
+                                <div className="link" onClick={this.hadleClick('company/employee')}><br/>Сотрудник</div>
+                            </li>
+                            <li>
+                                <div className="link" onClick={this.handleOutput}><br/>Выход</div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div className="links">
-                    <ul>
-                        <li>
-                            <div className="link" onClick={this.hadleClick()}><br/>Загрузка</div>
-                        </li>
-                        <li>
-                            <div className="link" onClick={this.hadleClick()}><br/>Сотрудник</div>
-                        </li>
-                        <li>
-                            <div className="link" onClick={this.handleOutput}><br/>Выход</div>
-                        </li>
-                    </ul>
+            )
+        }
+
+        if (this.state.user === EMPLOYEE) {
+            return (
+                <div className="sidebar">
+                    <div className="icons">
+                        <ul>
+                            <li>
+                                <div className="icon b" onClick={this.hadleClick('employee/info')}>
+                                </div>
+                            </li>
+                            <li>
+                                <div className="icon e" onClick={this.hadleClick('employee/withdraw')}>
+                                </div>
+                            </li>
+                            <li>
+                                <div className="icon f" onClick={this.hadleClick('employee/paylist')}>
+                                </div>
+                            </li>
+                            <li>
+                                <div className="icon d" onClick={this.handleOutput}>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="links links_bigger">
+                        <ul>
+                            <li>
+                                <div className="link link_big" onClick={this.hadleClick('employee/info')}><br/>Информация</div>
+                            </li>
+                            <li>
+                                <div className="link link_big" onClick={this.hadleClick('employee/withdraw')}><br/>Вывести деньги</div>
+                            </li>
+                            <li>
+                                <div className="link link_big" onClick={this.hadleClick('employee/paylist')}><br/>История платежей</div>
+                            </li>
+                            <li>
+                                <div className="link link_big" onClick={this.handleOutput}><br/>Выход</div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
     }
 
     render() {
