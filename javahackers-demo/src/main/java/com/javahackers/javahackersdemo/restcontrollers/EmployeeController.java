@@ -56,7 +56,9 @@ public class EmployeeController extends AbstractController {
         String sessionId = UUID.randomUUID().toString();
         tokens.put(sessionId, employee.getId());
 
-        return new ResponseEntity<>(sessionId, HttpStatus.OK);
+        String response = "{\"token\":\"" + sessionId + "\"}";
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/")
@@ -116,7 +118,7 @@ public class EmployeeController extends AbstractController {
         }
 
         int d = Integer.parseInt(days);
-        long toWithdraw = d*info.costHour;
+        long toWithdraw = d * info.costHour;
 
         boolean withdrawed = repositories.withdraw(id, d);
         if (withdrawed) {
@@ -127,7 +129,8 @@ public class EmployeeController extends AbstractController {
     }
 
     @GetMapping("/paylist")
-    public @ResponseBody String getWithdrawalsHistory(@RequestBody String body) {
+    public @ResponseBody
+    String getWithdrawalsHistory(@RequestBody String body) {
         logger.info("paylist called: " + body);
         return "paylistOk";
     }
