@@ -4,10 +4,13 @@ import { withRouter } from 'react-router-dom';
 import { withCookies } from 'react-cookie';
 
 import {
-    login,
     EmployeeOut,
     CompanyOut
-} from '../../actions';
+} from '../../actions/logout';
+import {
+    login
+} from '../../actions/login';
+
 import {
     EMPLOYEE,
     COMPANY
@@ -20,7 +23,8 @@ class Sidebar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: ''
+            error: '',
+            user: ''
         };
 
         this.hadleClick = this.hadleClick.bind(this);
@@ -31,7 +35,7 @@ class Sidebar extends Component {
         const {
             cookies,
             login,
-            match
+            location
         } = this.props;
 
         const token = cookies.get('token');
@@ -41,17 +45,17 @@ class Sidebar extends Component {
             this.setState({user});
         }
         else {
-           if (match.location.pathname === `/${EMPLOYEE}`) {
+           if (location && (location.pathname === `/${EMPLOYEE}`)) {
                this.setState({user: EMPLOYEE});
            }
-            if (match.location.pathname === `/${COMPANY}`) {
+            if (location && (location.pathname === `/${COMPANY}`)) {
                 this.setState({user: COMPANY});
             }
-
         }
 
-        if (!token) {
-            login(token)
+        const newUser = user || this.state.user;
+        if (token && newUser) {
+            login(newUser, token)
                 .then((data) => {
                     if (user === EMPLOYEE) {
                         this.props.history.push(`/${EMPLOYEE}`)
@@ -133,9 +137,9 @@ class Sidebar extends Component {
                 </div>
             )
         }
-        else {
-            history.push(`/login`);
-        }
+        // else {
+        //     history.push(`/login`);
+        // }
 
         return (
             <div>
