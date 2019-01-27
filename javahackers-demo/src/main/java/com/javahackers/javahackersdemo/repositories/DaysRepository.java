@@ -1,5 +1,6 @@
-package com.javahackers.javahackersdemo.db;
+package com.javahackers.javahackersdemo.repositories;
 
+import com.javahackers.javahackersdemo.entities.Day;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 import java.util.Date;
 
-public interface DaysRepository extends JpaRepository<Day, Date> {
+public interface DaysRepository extends JpaRepository<Day, String> {
     Collection<Day> findByDate(Date date);
 
     @Modifying
