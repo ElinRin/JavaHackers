@@ -12,9 +12,9 @@ import java.util.Date;
 import java.util.Optional;
 
 public class RepositoriesHelper {
-    EmployeesRepository employeesRepository;
-    CompanyRepository companyRepository;
-    DaysRepository daysRepository;
+    private EmployeesRepository employeesRepository;
+    private CompanyRepository companyRepository;
+    private DaysRepository daysRepository;
 
     public RepositoriesHelper(EmployeesRepository employeesRepository, CompanyRepository companyRepository, DaysRepository daysRepository) {
         this.employeesRepository = employeesRepository;
@@ -29,7 +29,7 @@ public class RepositoriesHelper {
             return null;
         }
 
-        return (Employee)employees.toArray()[0];
+        return (Employee) employees.toArray()[0];
     }
 
     public Employee findEmployeeById(String id) {
@@ -89,7 +89,7 @@ public class RepositoriesHelper {
         Date low = Utils.reduceDayToFirst(new Date()), high = new Date();
 
         Collection<Day> dayCollection = daysRepository.findByDateBetweenAndId(low, high, id);
-        Day[] array = (Day[])dayCollection.toArray();
+        Day[] array = (Day[]) dayCollection.toArray();
 
 
         int count = 0;
