@@ -34,7 +34,6 @@ ReactDOM.render((
                     <Switch>
                         <Route exact path='/' component={Main} />
                         <Route exact path='/employee' component={Employee} />
-                        <Route exact path='/employee/info' component={Info} />
                         <Route exact path='/company' component={Company} />
                     </Switch>
                 </div>
