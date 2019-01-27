@@ -1,0 +1,3 @@
+export const FETCH_COMPANY_DATA = 'FETCH_COMPANY_DATA';
+export const  FETCH_EMPLOYEE_DATA = 'FETCH_EMPLOYEE_DATA';
+export const ERROR = 'ERROR';
