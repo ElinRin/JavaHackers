@@ -96,15 +96,15 @@ public class EmployeeController extends AbstractController {
         return new ResponseEntity<>(new Gson().toJson(info), HttpStatus.OK);
     }
 
+    @PostMapping("/withdrawal")
+    public ResponseEntity withdrawMoney() {
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     @GetMapping("/paylist")
     public @ResponseBody String getWithdrawalsHistory(@RequestBody String body) {
         logger.info("paylist called: " + body);
         return "paylistOk";
-    }
-
-    @PostMapping("/withdraw")
-    public ResponseEntity withdrawMoney() {
-        return new ResponseEntity(HttpStatus.OK);
     }
 
 
