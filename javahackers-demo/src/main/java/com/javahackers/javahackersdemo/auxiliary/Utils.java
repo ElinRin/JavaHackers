@@ -1,3 +1,4 @@
+
 package com.javahackers.javahackersdemo.auxiliary;
 
 import java.util.Date;
@@ -25,5 +26,4 @@ public class Utils {
 
         return result;
     }
-
 }

@@ -2,7 +2,10 @@ package com.javahackers.javahackersdemo.restcontrollers;
 
 import com.google.gson.Gson;
 import com.javahackers.javahackersdemo.auxiliary.AuthInfo;
+import com.javahackers.javahackersdemo.auxiliary.EmployeeInfo;
+import com.javahackers.javahackersdemo.auxiliary.RepositoriesHelper;
 import com.javahackers.javahackersdemo.entities.Employee;
+import com.javahackers.javahackersdemo.repositories.CompanyRepository;
 import com.javahackers.javahackersdemo.repositories.EmployeesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,58 +24,87 @@ public class EmployeeController extends AbstractController {
     private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
     // Map sessionToken:employeeId
-    private Map<String, String> sessions = new HashMap<>();
+    private Map<String, String> tokens = new HashMap<>();
 
     private final EmployeesRepository employeesRepository;
+    private final CompanyRepository companyRepository;
+    private final RepositoriesHelper repositories;
+
 
     @Autowired
-    public EmployeeController(EmployeesRepository employeesRepository) {
+    public EmployeeController(EmployeesRepository employeesRepository, CompanyRepository companyRepository) {
         this.employeesRepository = employeesRepository;
+        this.companyRepository = companyRepository;
+        this.repositories = new RepositoriesHelper(employeesRepository, companyRepository);
     }
 
     @PostMapping("/")
     public ResponseEntity<String> authenticate(@RequestBody String body) {
 
         AuthInfo authInfo = new Gson().fromJson(body, AuthInfo.class);
-        Employee employee = employeesRepository.findByEmail(authInfo.email);
+        Employee employee = repositories.findEmployeeByEmail(authInfo.email);
 
         if (employee == null) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
         // todo: compare hash
         if (!employee.getPassHash().equals(authInfo.password)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
         String sessionId = UUID.randomUUID().toString();
-        sessions.put(sessionId, employee.getId());
+        tokens.put(sessionId, employee.getId());
 
         return new ResponseEntity<>(sessionId, HttpStatus.OK);
     }
 
     @GetMapping("/")
     public ResponseEntity<String> getInitialInfo(@RequestHeader("Token") String token) {
-        String id = getIdByToken(token);
+        String id = tokens.getOrDefault(token, null);
 
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        // todo
-        // builduserinfo
-        return new ResponseEntity<>("employeeInfo", HttpStatus.OK);
+        EmployeeInfo employeeInfo = repositories.findEmployeeInfoById(id);
+        if (employeeInfo == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        return new ResponseEntity<>(new Gson().toJson(employeeInfo), HttpStatus.OK);
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<String> getInfo(@RequestHeader("Token") String token) {
+        String id = tokens.getOrDefault(token, null);
+
+        if (id == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+
+        Employee employee = repositories.findEmployeeById(id);
+        if (employee == null) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        EmployeeInfo info = repositories.findEmployeeInfoById(id);
+        if (info == null) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<>(new Gson().toJson(info), HttpStatus.OK);
+    }
+
+    @PostMapping("/withdrawal")
+    public ResponseEntity withdrawMoney() {
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping("/paylist")
     public @ResponseBody String getWithdrawalsHistory(@RequestBody String body) {
         logger.info("paylist called: " + body);
         return "paylistOk";
-    }
-
-    @PostMapping("/withdraw")
-    public ResponseEntity withdrawMoney() {
-        return new ResponseEntity(HttpStatus.OK);
     }
 
 
