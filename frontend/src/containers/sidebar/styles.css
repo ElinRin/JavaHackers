@@ -33,22 +33,32 @@
 }
 
 .a {
-  background-image: url("../../icons/man.png");
+  background-image: url("../../icons/upload.png");
   background-size: 50px 50px;
 }
 
 .b {
-  background-image: url("../../icons/movie.png");
+  background-image: url("../../icons/employee.png");
   background-size: 50px 50px;
 }
 
 .c {
-  background-image: url("../../icons/users.png");
+  background-image: url("../../icons/employee_card.png");
   background-size: 50px 50px;
 }
 
 .d {
-  background-image: url("../../icons/left.png");
+  background-image: url("../../icons/logout.png");
+  background-size: 50px 50px;
+}
+
+.e {
+  background-image: url("../../icons/withdraw.png");
+  background-size: 50px 50px;
+}
+
+.f {
+  background-image: url("../../icons/paylist.png");
   background-size: 50px 50px;
 }
 
@@ -56,6 +66,10 @@
   display: none;
   width: 110px;
   box-shadow: 2px -1px 2px #545255;
+}
+
+.links_bigger {
+  width: 170px;
 }
 
 .links li {
@@ -78,4 +92,8 @@
   font-size: 20px;
   margin-left: 10px;
   text-align: left;
+}
+
+.link_big {
+  font-size: 20px;
 }
