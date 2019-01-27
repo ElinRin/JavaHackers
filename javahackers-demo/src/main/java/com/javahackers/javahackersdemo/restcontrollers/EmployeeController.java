@@ -66,12 +66,34 @@ public class EmployeeController extends AbstractController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        EmployeeInfo employeeInfo = repositories.getEmployeeInfoById(id);
+        EmployeeInfo employeeInfo = repositories.findEmployeeInfoById(id);
         if (employeeInfo == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         return new ResponseEntity<>(new Gson().toJson(employeeInfo), HttpStatus.OK);
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<String> getInfo(@RequestHeader("Token") String token) {
+        String id = tokens.getOrDefault(token, null);
+
+        if (id == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+
+        Employee employee = repositories.findEmployeeById(id);
+        if (employee == null) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        EmployeeInfo info = repositories.findEmployeeInfoById(id);
+        if (info == null) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<>(new Gson().toJson(info), HttpStatus.OK);
     }
 
     @GetMapping("/paylist")

@@ -37,7 +37,7 @@ public class RepositoriesHelper {
         return opt.orElse(null);
     }
 
-    public EmployeeInfo getEmployeeInfoById(String id) {
+    public EmployeeInfo findEmployeeInfoById(String id) {
         Employee employee = findEmployeeById(id);
         if (employee == null) {
             return null;
@@ -55,6 +55,15 @@ public class RepositoriesHelper {
         employeeInfo.realDays = 3L;
 
         return employeeInfo;
+    }
+
+    public EmployeeInfo findEmployeeInfoByEmail(String email) {
+        Employee employee = findEmployeeByEmail(email);
+        if (employee == null) {
+            return null;
+        }
+
+        return findEmployeeInfoById(employee.getId());
     }
 
     public CompanyInfo findCompanyInfoById(String id) {

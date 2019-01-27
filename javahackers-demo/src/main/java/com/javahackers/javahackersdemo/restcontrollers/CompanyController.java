@@ -3,8 +3,10 @@ package com.javahackers.javahackersdemo.restcontrollers;
 import com.google.gson.Gson;
 import com.javahackers.javahackersdemo.auxiliary.AuthInfo;
 import com.javahackers.javahackersdemo.auxiliary.CompanyInfo;
+import com.javahackers.javahackersdemo.auxiliary.EmployeeInfo;
 import com.javahackers.javahackersdemo.auxiliary.RepositoriesHelper;
 import com.javahackers.javahackersdemo.entities.Company;
+import com.javahackers.javahackersdemo.entities.Employee;
 import com.javahackers.javahackersdemo.repositories.CompanyRepository;
 import com.javahackers.javahackersdemo.repositories.EmployeesRepository;
 import org.slf4j.Logger;
@@ -68,6 +70,16 @@ public class CompanyController extends AbstractController {
 
         return new ResponseEntity<>(new Gson().toJson(companyInfo), HttpStatus.OK);
 
+    }
+
+    @PostMapping("/info")
+    public ResponseEntity<String> getInfo(@RequestHeader("Token") String token, @RequestBody String body) {
+        EmployeeInfo info = repositories.findEmployeeInfoByEmail(body);
+        if (info == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(new Gson().toJson(info), HttpStatus.OK);
     }
 
     @PostMapping("/employees")
