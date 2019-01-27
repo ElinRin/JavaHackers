@@ -16,8 +16,9 @@ import Main from './pages/Main';
 import Sidebar from './containers/sidebar';
 
 import './styles.css';
-import Employee from "./pages/Employee";
-import Company from "./pages/Company";
+import Employee from './pages/Employee';
+import Company from './pages/Company';
+import Info from './containers/info'
 
 const store = createStore(reducers, composeWithDevTools(
     applyMiddleware(thunk)
@@ -33,6 +34,7 @@ ReactDOM.render((
                     <Switch>
                         <Route exact path='/' component={Main} />
                         <Route exact path='/employee' component={Employee} />
+                        <Route exact path='/employee/info' component={Info} />
                         <Route exact path='/company' component={Company} />
                     </Switch>
                 </div>

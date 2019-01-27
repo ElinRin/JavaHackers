@@ -7,7 +7,7 @@ import { withCookies } from 'react-cookie';
 import {
     identity,
     login
-} from '../../actions';
+} from '../../actions/login';
 
 import './styles.css';
 import {COMPANY} from "../../constants";
@@ -60,7 +60,8 @@ class Login extends Component {
         const {
             identity,
             cookies,
-            user
+            user,
+            login
         } = this.props;
 
         event.preventDefault();
@@ -73,7 +74,7 @@ class Login extends Component {
                     cookies.set('user', user, { path: '/' });
                 }
 
-                this.login(user, token);
+                login(user, token);
             },
             (err) => {
                 if (err.code === 403) {
