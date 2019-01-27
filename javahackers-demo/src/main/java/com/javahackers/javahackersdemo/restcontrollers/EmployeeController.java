@@ -46,7 +46,7 @@ public class EmployeeController extends AbstractController {
         Employee employee = repositories.findEmployeeByEmail(authInfo.email);
 
         if (employee == null) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         // todo: compare hash
         if (!employee.getPassword().equals(authInfo.password)) {

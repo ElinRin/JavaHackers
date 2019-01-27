@@ -12,9 +12,9 @@ import java.util.Date;
 import java.util.Optional;
 
 public class RepositoriesHelper {
-    EmployeesRepository employeesRepository;
-    CompanyRepository companyRepository;
-    DaysRepository daysRepository;
+    private EmployeesRepository employeesRepository;
+    private CompanyRepository companyRepository;
+    private DaysRepository daysRepository;
 
     public RepositoriesHelper(EmployeesRepository employeesRepository, CompanyRepository companyRepository, DaysRepository daysRepository) {
         this.employeesRepository = employeesRepository;
