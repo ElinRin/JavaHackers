@@ -6,6 +6,7 @@ import com.javahackers.javahackersdemo.auxiliary.EmployeeInfo;
 import com.javahackers.javahackersdemo.auxiliary.RepositoriesHelper;
 import com.javahackers.javahackersdemo.entities.Employee;
 import com.javahackers.javahackersdemo.repositories.CompanyRepository;
+import com.javahackers.javahackersdemo.repositories.DaysRepository;
 import com.javahackers.javahackersdemo.repositories.EmployeesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,10 +33,10 @@ public class EmployeeController extends AbstractController {
 
 
     @Autowired
-    public EmployeeController(EmployeesRepository employeesRepository, CompanyRepository companyRepository) {
+    public EmployeeController(EmployeesRepository employeesRepository, CompanyRepository companyRepository, DaysRepository daysRepository) {
         this.employeesRepository = employeesRepository;
         this.companyRepository = companyRepository;
-        this.repositories = new RepositoriesHelper(employeesRepository, companyRepository);
+        this.repositories = new RepositoriesHelper(employeesRepository, companyRepository, daysRepository);
     }
 
     @PostMapping("/")
@@ -97,8 +98,32 @@ public class EmployeeController extends AbstractController {
     }
 
     @PostMapping("/withdrawal")
-    public ResponseEntity withdrawMoney(@RequestBody String request) {
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<String> withdrawMoney(@RequestHeader("Token") String token, @RequestBody String days) {
+        String id = tokens.getOrDefault(token, null);
+
+        if (id == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        EmployeeInfo info = repositories.findEmployeeInfoById(id);
+        if (info == null) {
+            return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+        }
+
+        Employee employee = repositories.findEmployeeById(id);
+        if (employee == null) {
+            return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+        }
+
+        int d = Integer.parseInt(days);
+        long toWithdraw = d*info.costHour;
+
+        boolean withdrawed = repositories.withdraw(id, d);
+        if (withdrawed) {
+            sberbankApi.withdrawMoney(employee.getEmail(), toWithdraw);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/paylist")

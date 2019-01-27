@@ -8,6 +8,7 @@ import com.javahackers.javahackersdemo.auxiliary.RepositoriesHelper;
 import com.javahackers.javahackersdemo.entities.Company;
 import com.javahackers.javahackersdemo.entities.Employee;
 import com.javahackers.javahackersdemo.repositories.CompanyRepository;
+import com.javahackers.javahackersdemo.repositories.DaysRepository;
 import com.javahackers.javahackersdemo.repositories.EmployeesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +32,8 @@ public class CompanyController extends AbstractController {
     private final RepositoriesHelper repositories;
 
     @Autowired
-    public CompanyController(EmployeesRepository employeesRepository, CompanyRepository companyRepository) {
-        this.repositories = new RepositoriesHelper(employeesRepository, companyRepository);
+    public CompanyController(EmployeesRepository employeesRepository, CompanyRepository companyRepository, DaysRepository daysRepository) {
+        this.repositories = new RepositoriesHelper(employeesRepository, companyRepository, daysRepository);
     }
 
     @PostMapping("/")
