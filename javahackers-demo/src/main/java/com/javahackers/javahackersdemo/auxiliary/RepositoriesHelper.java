@@ -83,7 +83,7 @@ public class RepositoriesHelper {
         return info;
     }
 
-    public boolean withdraw(String id, int days) {
+    public boolean withdraw(String id, int requestedDays) {
         Employee employee = findEmployeeById(id);
         EmployeeInfo info = findEmployeeInfoById(id);
         Date low = null, high = new Date();
@@ -99,12 +99,19 @@ public class RepositoriesHelper {
             }
         }
 
-        if (count < days) {
+        if (count < requestedDays) {
             return false;
         }
 
         for (int i = 0; i < array.length; ++i) {
-            array[i].
+            if (!array[i].isWithdraw()) {
+                requestedDays--;
+                array[i].setWithdraw(true);
+            }
+
+            if (requestedDays == 0) {
+                break;
+            }
         }
 
         return true;
