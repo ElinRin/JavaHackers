@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Date;
 
 public interface DaysRepository extends JpaRepository<Day, String> {
+
     Collection<Day> findByDate(Date date);
 
     @Modifying

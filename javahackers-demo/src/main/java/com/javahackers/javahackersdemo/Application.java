@@ -10,14 +10,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Component;
 
-//@SpringBootApplication
-//@EnableJpaAuditing
-//@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
-//@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 @SpringBootApplication
 @EnableConfigurationProperties
 @EntityScan(basePackages = {"com.javahackers.javahackersdemo.entities"})
-@EnableJpaRepositories(basePackages = {"com.javahackers.javahackersdemo.entities"})
+@EnableJpaRepositories(basePackages = {"com.javahackers.javahackersdemo.repositories"})
 public class Application {
 
     public static void main(String[] args) {
@@ -26,15 +22,19 @@ public class Application {
 }
 
 
-@Component
-class DaysCommandLineRunner implements CommandLineRunner {
-
-    @Override
-    public void run(String... args) throws Exception {
-
-    }
-
-    @Autowired
-    DaysRepository daysRepository;
-}
-
+//@Component
+//class DaysCommandLineRunner implements CommandLineRunner {
+//
+//    @Autowired
+//    public DaysCommandLineRunner(DaysRepository daysRepository) {
+//        this.daysRepository = daysRepository;
+//    }
+//
+//    @Override
+//    public void run(String... args) throws Exception {
+//
+//    }
+//
+//    private final DaysRepository daysRepository;
+//}
+//
